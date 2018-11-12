@@ -1,0 +1,60 @@
+<view class="page">
+  <view class="page__bd {{show ? 'pt50' : ''}}">
+    <view class="weui-tab">
+       <!-- tab栏 -->
+      <view class="weui-navbar fixed_t_0 w_bg">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item.name}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="width:{{sliderWidth}}em;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+       <!-- 订单列表 -->
+      <view class="weui-tab__panel" style='padding-top: 0px' wx:if="{{show}}">
+        <view class="p_p_20 fs_30 w_full border_box w_bg m_v_20"  wx:for="{{orderList}}" wx:key="{{item.id}}">
+          <view class="flex_btw_c p_v_20">
+            <text>订单编号：{{item.number}}</text>
+            <block wx:if="{{tabs[activeIndex].val == 'all'}}">
+              <text class="fs_25 p_l_10" wx:if="{{item.pay_state == 1}}">{{tabs[1].name}}</text>
+              <text class="fs_25 p_l_10" wx:if="{{item.state == 3 && item.pay_state == 2}}">{{tabs[2].name}}</text>
+              <text class="fs_25 p_l_10" wx:if="{{item.pay_state == 3}}">{{tabs[4].name}}</text>
+              <text class="fs_25 p_l_10" wx:if="{{item.state == 2}}">{{tabs[3].name}}</text>
+            </block>
+          </view>
+          <view class="border_v p_v_20" bindtap='linkTo' data-item='{{item}}'>
+            <view class="ellipsis m_b_10">{{item.Store.title}}</view>
+            <view class="gray_c fs_25">  
+              <text>入住：{{item.check}}</text>
+              <text class="p_p_30">退房：{{item.departure}}</text>
+              <text>共：{{item.totalNight}}晚</text>
+            </view>
+            <view class="gray_c fs_25">
+              <text>订房数量：{{item.totalNight}}</text>
+            </view>
+          </view>
+          <view class="flex_btw_c p_v_20">
+            <view>订单金额:
+              <text class="yuan main_c fs_35">{{item.price}}</text>
+            </view>
+            <button wx:if='{{item.state == 1}}' class="weui-btn btn_flat" type="primary" size="mini" bindtap='payOrder' data-item='{{item}}'>{{"付款"}}</button>
+            <button wx:if='{{item.state == 2}}' class="weui-btn btn_flat" type="primary" size="mini" bindtap='buyMore' data-item='{{item}}'>{{"即将入住"}}</button>   
+            <button wx:if='{{item.state == 3}}' class="weui-btn btn_flat" type="primary" size="mini" bindtap='addComment' data-item='{{item}}'>{{"评价"}}</button>
+            <button wx:if='{{item.state == 4}}' class="weui-btn btn_flat" type="primary" size="mini" bindtap='lookDetail' data-item='{{item}}'>{{"查看详情"}}</button>
+            <button wx:if='{{item.state == 5}}' class="weui-btn btn_flat" type="primary" size="mini" data-item='{{item}}'>{{"已取消"}}</button>
+            <button wx:if='{{item.state == 6}}' class="weui-btn btn_flat" type="primary" size="mini" data-item='{{item}}'>{{"已评价"}}</button>
+            <button wx:if='{{item.state == 7}}' class="weui-btn btn_flat" type="primary" size="mini" data-item='{{item}}'>{{"支付中"}}</button>
+          </view>
+        </view>
+      </view>
+      <!-- 无数据 -->
+      <view  class="weui-tab__panel" wx:else style='padding-top: 50px'>
+        <view class='no_record'>
+          <icon class="icon iconfont icon-wujilu" style="font-size: 100rpx;"></icon>
+          <text>暂无记录</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='message {{ isMessageShow ? "message_show" : "" }}'>{{ message }}</view>
+</view>

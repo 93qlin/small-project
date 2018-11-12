@@ -1,0 +1,9 @@
+/**comment.wxss**/
+.sofa{
+  width: 570rpx;
+  height: 430rpx;
+  margin: 100rpx auto;
+  display: block;
+  text-align: center;
+  color: #ccc;
+}

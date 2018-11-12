@@ -1,0 +1,14 @@
+<view class="container">
+    <view class="form-box">
+    	<view class="form-item">
+    		<input class="mobile" value="{{mobile}}" bindinput="bindMobileInput" placeholder="请输入手机号码" type="number" maxlength="11" auto-focus/>
+    		<image wx:if="{{ mobile.length > 0 }}" id="clear-mobile" class="clear" src="/image/clear_input.png" catchtap="clearInput"></image>
+				<button type="default" class="code-btn" bindtap="bindSendCode" wx:if="{{verifyMobilePass}}" disabled="{{verifydisabled}}">{{verifyBtnText}}</button>
+    	</view>
+    	<view class="form-item" wx:if="{{ verifyMobilePass && verifyCodePass }}">
+    		<input class="mobileCode" value="{{mobileCode}}" focus="{{codefocus}}" bindinput="bindMobileCodeInput" type="number" maxlength="4" placeholder="请输入验证码"/>
+    		<image wx:if="{{ mobileCode.length > 0 }}" class="clear" id="clear-mobilecode" src="/image/clear_input.png" catchtap="clearInput"></image>
+    	</view>
+    	<button type="default" class="login-btn" loading="{{loading}}" disabled="{{!verifyCodePass}}" bindtap="startRegister">绑定手机</button>
+    </view>
+</view>

@@ -1,0 +1,94 @@
+<view class="page {{isShowMask ? 'isScroll' : 'page'}}">
+  <view class="page__bd">
+    <!--搜索按钮  -->
+    <view class="group">
+      <view class="priceSort" catchtap='showPriceSort'>
+        <view class="{{clickPrice?'clicked':'normal'}} box-center">
+          <text>价格/星级</text>
+          <icon class="icon iconfont icon-toDown mg_10_l"></icon>
+        </view>
+      </view>
+      <view class="capacitySort" bindtap='showPrioritySort'>
+        <view class="{{clickPriority?'clicked':'normal'}} box-center">
+          <text>{{sortname}}</text>
+          <icon class="icon iconfont icon-toDown mg_10_l"></icon>
+        </view>
+      </view>
+    </view>
+    <!--搜索条件  -->
+    <view class="mask" wx:if="{{isShowMask}}" bindtap='closeMask' >
+      <!-- 价格星级 -->
+      <view class="searchCriteria" wx:if="{{inLevel}}">
+        <view class="searchBox">
+          <view class="top">
+            <view class="title">星级</view>
+            <view class="content">
+              <text wx:for="{{starLevelType}}" wx:key="type" class="type {{item.isSelected?'selected':'normal'}}" catch:tap='selectStar' data-item="{{item}}">{{item.type}}</text>
+            </view>
+          </view>
+          <view class="center">
+            <view class="title">价格</view>
+            <view class="priceContent">
+              <view wx:for="{{priceType}}" wx:key="type" class="priceType {{item.isSelected?'selected':'normal'}}" catch:tap='selectPrice' data-item="{{item}}">{{item.type}}</view>
+            </view>
+          </view>
+          <view class='footer'>
+            <view class="btn" catch:tap='reset'>重置</view>
+            <view class="btn" bindtap='confirm'>完成</view>
+          </view>
+        </view>
+      </view>
+      <!-- 智能排序 -->
+      <view class="priorityCriteria" wx:if="{{inCapacity}}">
+        <view wx:for="{{priorityType}}" wx:key="type" class="searchItem {{item.isSelected?'selected':'normal'}}" catch:tap='selectPriority' data-index="{{index}}">
+          <text style="margin-left:20rpx; {{item.isSelected?'color:#ff9900;':''}}">{{item.type}}</text>
+        </view>
+      </view>
+    </view>
+    <!--搜索结果  -->
+    <view class="parentBox weui-panel__bd hidden w_c" wx:if="{{hotelList.length}}">
+      <navigator wx:for="{{hotelList}}" url="/pages/home/booking/booking?sid={{item.id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active"  wx:key="status">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+          <image class="weui-media-box__thumb h_full" src="{{item.picture}}" />
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg fs_25">
+          <view class="weui-media-box__title fs_30">{{item.title}}</view>
+          <view class='flex_start_c'>
+            <view class="starBox flex_start_c">
+							<block wx:for='{{item.star}}' wx:key="index" wx:for-item="star">
+								 <block  wx:if='{{star==0}}'>
+									<text class="iconfont icon-xing1 brown-color"></text>
+								</block>  
+              	<block  wx:if='{{star==1}}'>
+									<text class="iconfont icon-star brown-color" ></text>
+								</block>
+								<block wx:if='{{star==0.5}}'>
+									<!-- <text class="iconfont icon-starhalf brown-color"></text> -->
+									<text class="iconfont icon-xing2 brown-color"></text>                  
+								</block>
+							</block>		
+            </view>
+            <text class="comment p_l_20">评分{{item.score}}分 | {{hotelType[item.type]}}</text>
+          </view>
+          <view class="flex_start_c">
+            <view class='ellipsis gray_c'>
+            <text>{{item.address}}</text>
+            </view>
+          </view>
+          <view class='fs_25 main_c text_r'>
+            <text>￥</text>
+            <text class="fs_40">{{item.price}}</text>
+            <text>起</text>
+          </view>
+        </view>
+      </navigator>
+    </view>
+    <view  class="parentBox weui-panel__bd hidden w_c" wx:else style='padding-top: 50px'>
+      <view class='no_record'>
+        <icon class="icon iconfont icon-wujilu" style="font-size: 100rpx;"></icon>
+        <text>暂无记录</text>
+      </view>
+    </view>
+  </view>
+  <!--bd end-->
+</view>

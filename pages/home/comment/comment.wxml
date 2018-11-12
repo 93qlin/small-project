@@ -1,0 +1,37 @@
+<view class="w_bg">
+  <view class="weui-panel weui-panel_access" wx:if="{{show}}">
+    <view class="weui-panel__bd">
+      <!--列表循环  -->
+      <block wx:for="{{commentList}}" wx:key="{{item}}">
+        <view class="weui-media-box weui-media-box_appmsg flex_start_start">
+          <!--图片  -->
+          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg wh_70 radius_100 hidden">
+            <image class="weui-media-box__thumb" src="{{item.avatar}}" />
+          </view>
+          <!--图片 end -->
+          <!--链接  -->
+          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__title">
+              <view class="fs_30">
+                <text>{{item.nickname}}</text>
+              </view>
+              <view class="fs_20">
+                <text class="main_c">{{item.score}}分</text>
+                <text class="gray_c p_l_10">{{item.created_at || ''}}</text>
+              </view>
+            </view>
+            <view class="weui-media-box__desc block" style="-webkit-line-clamp:3">
+              <text class="fs_30" style="line-height:1.5">{{item.content}}</text>
+            </view>
+          </view>
+          <!--链接 end -->
+        </view>
+      </block>
+      <!--列表循环 end -->
+    </view>
+  </view>
+  <!-- 无评论 -->
+  <view wx:else>
+    <image  class="sofa" src="http://m.renwuyi.com/wap/img/tab-bg.gif"></image>
+  </view>
+</view>

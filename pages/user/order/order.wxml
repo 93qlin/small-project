@@ -1,0 +1,110 @@
+<view class="page w_bg" style="overflow: hidden;">
+  <view class="page__hd" wx:if="{{!flag}}">
+    <view class="p_20 fs_30 gray_c" style="border: 20rpx solid #f98401;">
+      <view class="fs_40 b_c">
+        <view>{{orderMsg.store.title}}</view>
+      </view>
+      <view>
+        <view>{{orderMsg.check}}至{{orderMsg.departure}} 共{{orderMsg.totalNight}}晚</view>
+        <view>{{orderMsg.room.title}}</view>
+        <view>{{orderMsg.store.address}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="page__bd w_bg">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+         <view class="weui-cell__hd height">
+          <picker mode="date" value="{{starttime}}" bindchange="bindDateChange"  wx:if="{{!flag}}">预计到店日期: {{starttime}}  </picker> 
+          <picker mode="date" value="{{starttime}}" bindchange="bindDateChange"  wx:else>预计到店日期: {{starttime}}  </picker>           
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd height">
+          <picker mode="time" value="{{endtime}}" bindchange="bindDateTimeChange"  wx:if="{{!flag}}">预计到店时间: {{endtime}}  </picker>
+          <picker mode="time" value="{{endtime}}"  bindchange="bindDateTimeChange"  wx:else>预计到店时间: {{endtime}}  </picker>          
+        </view> 
+      </view> 
+      <view class="weui-cell weui-cell_input" wx:if="{{flag}}">
+        <view class="weui-cell__hd height">
+          <picker mode="date" value="{{leavetime}}" bindchange="bindleaveTimeChange">预计离店日期: {{leavetime}} </picker>
+        </view> 
+      </view> 
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">房间数量</view>
+        </view>
+        <view class="weui-cell__bd" wx:if="{{!flag}}">
+          <input class="weui-input" value='{{ orderMsg.count || 1}}' bindchange='editCount'/>
+        </view>
+        <view class="weui-cell__bd" wx:else>
+          <input class="weui-input" value='{{ count || 1}}' bindchange='editCount'/>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">入住人</view>
+        </view>
+        <view class="weui-cell__bd" wx:if="{{!flag}}"> 
+          <input class="weui-input" value='{{ orderMsg.guest}}' bindblur='editUser' />
+        </view>        
+        <view class="weui-cell__bd" wx:else>
+          <input class="weui-input" value='{{username}}' bindblur='editUser' />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">手机号</view>
+        </view>
+        <view class="weui-cell__bd" wx:if="{{!flag}}">
+          <input class="weui-input" value='{{ orderMsg.mobile}}' bindblur='editMobile' />
+        </view>
+        <view class="weui-cell__bd" wx:else>
+          <input class="weui-input" value='{{mobile}}' bindblur='editMobile' />
+        </view>
+      </view>
+    </view>
+    <!--支付方式  -->
+    <view class="weui-cells weui-cells_after-title flex border_b border_t">
+      <view class="weui-cells__title b_c" style="font-size:17px">支付方式</view>
+      <!--查看订单  -->
+      <radio-group  class="flex_grow"  wx:if="{{!flag}}">
+        <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="value">
+          <checkbox class="weui-check" value="{{item.value}}" checked="{{ orderMsg.pay_type == item.value}}" />
+          <view class="weui-cell__hd weui-check__hd_in-checkbox">
+            <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{orderMsg.pay_type == item.value }}"></icon>
+            <icon class="weui-icon-checkbox_circle" type="circle" size="23"  wx:else></icon>
+          </view>
+          <view class="weui-cell__bd">{{item.name}}</view>
+        </label>
+      </radio-group>
+      <!-- 预定下单 -->
+       <radio-group bindchange="checkboxChange" class="flex_grow" wx:else>
+        <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="value">
+          <checkbox  class="weui-check" value="{{item.value}}" checked="{{item.checked}}"/>          
+          <view class="weui-cell__hd weui-check__hd_in-checkbox">
+            <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
+            <icon class="weui-icon-checkbox_circle" type="circle" size="23"  wx:else></icon>
+          </view>
+          <view class="weui-cell__bd">{{item.name}}</view>
+        </label>
+      </radio-group>
+      
+    </view>
+    <!--提示  -->
+    <view class="tips">
+      <view class="tipTxt">
+        <text class="txt">温馨提示:</text>
+      </view>
+      <view class="tipContent" style="margin-top:10px;">
+        <text>{{orderMsg.rule_desc}}</text>
+      </view>
+    </view>
+    <!--提交  -->
+    <view class="w_full fixed_b_0 flex_btw_c border_t w_bg">
+      <view class="w_half h_full main_c p_l_30 " wx:if="{{!flag}}">合计 <text class="fs_30">￥</text><text class="fs_50">{{orderMsg.price || 0}}</text></view>
+      <view class="w_half h_full main_c p_l_30 " wx:else>合计 <text class="fs_30">￥</text><text class="fs_50">{{price || 0}}</text></view>
+      <button class="weui-btn btn_flat w_half h_full" type="primary" bindtap='addOrder'>提交订单</button>
+    </view>
+  </view>
+</view>

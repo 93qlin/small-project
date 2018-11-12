@@ -1,0 +1,95 @@
+<!--pages/user/orderDetail/orderDetail.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">{{store.title || '酒店'}}</view>
+       </view> 
+      <view class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd">{{store.area_desc}}{{store.address}}</view>
+        <view class="weui-cell__ft"></view>
+      </view>
+      <view class="weui-cell weui-cell_access" bindtap='makePhoneCall'>
+        <view class="weui-cell__bd">{{store.phone}}</view>
+        <view class="weui-cell__ft main_c">联系方式</view>
+      </view>
+    </view>
+  </view>
+  <view class="page__bd p_b_100 w_bg">
+    <view class="weui-form-preview m_t_20">
+      <!--预定信息  -->
+      <view class="weui-form-preview__hd">
+        <view class="weui-form-preview__label b_c" style="float:none;text-align-last:start">预定信息</view>
+        <view class="weui-form-preview__value_in-hd"></view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">时间</view>
+          <view class="weui-form-preview__value"><text>{{orderMsg.check}} 至 {{orderMsg.departure}}\n 共{{orderMsg.totalNight}}晚</text></view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">房型</view>
+          <view class="weui-form-preview__value">{{room.title || '普通房'}}, 共{{orderMsg.count}}间</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">入住人</view>
+          <view class="weui-form-preview__value">{{orderMsg.guest}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">预计到店</view>
+          <view class="weui-form-preview__value">{{orderMsg.estimate || '到期时间'}}之前</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">联系手机</view>
+          <view class="weui-form-preview__value">{{orderMsg.mobile}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">入住说明</view>
+          <view class="weui-form-preview__value">{{store.check_desc || '暂未设置说明哦'}}</view>
+        </view>
+      </view>
+      <!--预定信息 end -->
+      <!--订单信息 -->
+      <view class="weui-form-preview__hd">
+        <view class="weui-form-preview__label b_c">订单信息</view>
+        <!--总价-->
+         <view class="weui-form-preview__value_in-hd yuan main_c">{{orderMsg.price}}</view> 
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">订单编号</view>
+          <view class="weui-form-preview__value">{{orderMsg.number}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">下单时间</view>
+          <view class="weui-form-preview__value">{{orderMsg.created_at || ''}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">订房数量</view>
+          <view class="weui-form-preview__value">{{orderMsg.count}}间{{orderMsg.totalNight}}晚</view>
+        </view>
+         <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">订单金额</view>
+          <view class="weui-form-preview__value yuan">{{orderMsg.price}}</view>
+        </view>  
+        <!--订单信息 end -->
+      </view>
+      <!--操作-->
+      <view class="fixed_b_0 w_full flex_start_c border_t z_999">
+        <button class="weui-btn btn_flat w_full" type="primary" wx:if='{{orderMsg.state == 6 }}'>
+          <text>支付中</text>
+        </button>
+        <button class="weui-btn btn_flat w_full" type="primary" bindtap="orderPay" wx:else>
+          <text wx:if='{{orderMsg.state == 1 }}'>支付</text>
+          <text wx:if='{{orderMsg.state == 2 }}'>即将入住</text>
+          <text wx:if='{{orderMsg.state == 3 }}'>去评价</text>
+          <text wx:if='{{orderMsg.state == 4 }}'>退款详情</text>
+        </button>
+        <!-- <button class="weui-btn btn_flat w_full main_c" bindtap="cancelOrder" wx:if='{{orderMsg.state == 2 && orderMsg.state == 2 }}'>
+          <text>退款</text>
+        </button> -->
+      </view>
+      <!--操作 end-->
+    </view>
+  </view>
+</view>

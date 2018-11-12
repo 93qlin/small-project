@@ -1,0 +1,138 @@
+/**app.wxss**/
+@import 'style/weui.wxss';
+@import 'style/iconfont.wxss';
+@import 'style/common.wxss';
+
+/* 容器 */
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+/* 页面设置 */
+.page {
+  width: 100%;
+  background: #eee;
+}
+.page__bd {
+  width: 100%;
+  background: #eee;
+}
+page {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.hidden { overflow: hidden !important; }
+.scroll { overflow: scroll; }
+.scroll_Y { overflow-y: scroll; }
+
+
+/* 轮播 */
+.banner {
+  width: 100% !important;
+  height: 360rpx !important;
+}
+.swiper {
+  display: block !important;
+  height: 100% !important;
+}
+
+
+/* 字体图标 */
+.iconfont {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* 按钮 */
+button[type="primary"] { background: rgba(249, 132, 1, 0.9) !important; }
+.button-hover[type="primary"] { background: rgba(249, 132, 1, 1) !important; }
+.btn_flat {
+  border-radius: 0;
+  bottom: 0;
+  margin: 0;
+}
+.btn_flat::after {
+  width: 0;
+  height: 0;
+}
+
+/* toast */
+.message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  color:#fff;
+  font-size: 28rpx;
+  padding: 20rpx 50rpx;
+  border-radius: 5rpx;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.7);
+  opacity: 0;
+  z-index: -1;
+}
+.message_show { 
+  opacity: 1;
+  z-index: 9999;
+  transition: opacity .8s;
+}
+
+/* 暂无记录 */
+.no_record{
+  font-size: 50rpx;
+  color:#ddd;
+  width:400rpx;
+  height: 400rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  top: 300%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 消息提示框 */
+.showMsg{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  color:#fff;
+  font-size: 28rpx;
+  padding: 20rpx 50rpx;
+  border-radius: 5rpx;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.7);
+  opacity: 0;
+  z-index: -1;
+}
+.message_show { 
+  opacity: 0.8;
+  z-index: 9999;
+  transition: opacity .8s;
+}
+/* 遮罩层 */
+.z_999 { z-index: 999; }
+.mask {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 99;
+  display: none;
+  transition: 0.5s all;
+}
+.show_mask {
+  background: rgba(0, 0, 0, 0.7);
+  display: block;
+}

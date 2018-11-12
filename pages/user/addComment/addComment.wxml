@@ -1,0 +1,31 @@
+<view class="page">
+  <view class="page__hd">
+  </view>
+  <view class="page__bd w_bg">
+    <view class="w_full h_200 flex_btw_c">
+      <view class="p_30">总分</view>
+      <view class='flex_c h_full main_c '>
+        <icon class="iconfont icon-star {{score>=1?'main_c':'gray_c'}} p_p_20 fs_50" bindtap="setScore" data-score="1"></icon>
+        <icon class="iconfont icon-star {{score>=2?'main_c':'gray_c'}} p_p_20 fs_50" bindtap="setScore" data-score="2"></icon>
+        <icon class="iconfont icon-star {{score>=3?'main_c':'gray_c'}} p_p_20 fs_50" bindtap="setScore" data-score="3"></icon>
+        <icon class="iconfont icon-star {{score>=4?'main_c':'gray_c'}} p_p_20 fs_50" bindtap="setScore" data-score="4"></icon>
+        <icon class="iconfont icon-star {{score>=5?'main_c':'gray_c'}} p_p_20 fs_50" bindtap="setScore" data-score="5"></icon>
+      </view>
+      <view class="p_30">{{scoreText[score-1]?scoreText[score-1]:'评价'}}</view>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <textarea class="weui-textarea" placeholder="服务周到吗, 环境如何？" style="height: 12em" bindinput='getContent'/>
+        </view>
+      </view>
+    </view>
+    <!-- <view class='w_full h_100 flex_start_c p_p_20 border_box'>
+      <switch checked bindchange="switchChange" color="#f98401" type="checkbox"/>匿名
+      <text class="m_l_auto gray_c fs_30">{{isAnonymous?'你的评价将以匿名形式展示':'你的评价能帮到其他小伙伴哦'}}</text>
+    </view> -->
+    <button type="primary" class='btn_flat fixed_b_0 w_full' bindtap='addComment'>提交</button>
+  </view>
+  <!-- 消息提示 -->
+  <view  class="showMsg {{isShowmsg ? 'message_show' : ''}}"  >{{message}}</view>
+</view>

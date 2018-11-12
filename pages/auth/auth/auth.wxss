@@ -1,0 +1,81 @@
+.container {
+  box-sizing: border-box;
+  background-color: #ffffff;
+  padding: 0;
+} 
+
+view,image,text,navigator{
+  box-sizing: border-box;
+  padding:0;
+  margin:0;
+}
+
+view,text{
+  font-size: 29rpx;
+  color: #333;
+}
+
+.form-box{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding: 0 40rpx;
+    margin-top: 96rpx;
+    background: #fff;
+}
+
+.form-item{
+    position: relative;
+    background: #fff;
+    height: 96rpx;
+    border-bottom: 1rpx solid #d9d9d9;
+}
+
+.form-item .mobile, .form-item .mobileCode {
+    position: absolute;
+    top: 26rpx;
+    left: 0;
+    display: block;
+    width: 90%;
+    height: 44rpx;
+    background: #fff;
+    color: #333;
+    font-size: 30rpx;
+}
+.form-item .mobile {
+    width: 80%;
+}
+.form-item .clear{
+    position: absolute;
+    top: 26rpx;
+    right: 18rpx;
+    z-index: 2;
+    display: block;
+    background: #fff;
+    height: 44rpx;
+    width: 44rpx;
+}
+
+.form-item .code-btn {
+    position: absolute;
+    top: 20rpx;
+    right: 2rpx;
+    z-index: 3;
+    display: block;
+    background:#f1f1f1;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    width: 100px; 
+}
+
+.login-btn{
+    margin: 100rpx 0 40rpx 0;
+    height: 96rpx;
+    line-height: 96rpx;
+    color: #fff;
+    font-size: 30rpx;
+    width: 100%;
+    background: #b4282d;
+    border-radius: 6rpx;
+}

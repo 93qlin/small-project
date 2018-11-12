@@ -1,0 +1,60 @@
+<!--pages/user/refundDetail/refundDetail.wxml-->
+
+<view class="page">
+  <view class="page__hd">
+    <view class="main_bg w_full h_100 flex_c">
+      您已成功发起退款申请，请耐心等候
+    </view>
+  </view>
+  <view class="page__bd w_bg p_b_100">
+    <view class="weui-form-preview">
+      <view class="weui-form-preview__hd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">退款金额</view>
+          <view class="weui-form-preview__value_in-hd main_c">¥{{orderMsg.price}}</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">时间</view>
+          <view class="weui-form-preview__value">
+            <text>{{orderMsg.check}}至{{orderMsg.departure}} \n 共{{orderMsg.totalNight}}晚</text>
+          </view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">订房数量</view>
+          <view class="weui-form-preview__value">{{orderMsg.count}}间</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">入住人</view>
+          <view class="weui-form-preview__value">{{orderMsg.guest}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">申请时间</view>
+          <view class="weui-form-preview__value">{{orderMsg.created_at}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">支付方式</view>
+          <view class="weui-form-preview__value">{{orderMsg.pay_type === 1 ? '微信支付': '微信支付'}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">退款说明</view>
+          <view class="weui-form-preview__value">{{}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">退款订单</view>
+          <view class="weui-form-preview__value">{{123421235656}}</view>
+        </view>
+      </view>
+
+      <view class="fixed_b_0 w_full flex_start_c border_t z_999">
+        <button class="weui-btn btn_flat w_full" type="primary" bindtap='revocation'>
+          <text>撤销申请</text>
+        </button>
+        <button class="weui-btn btn_flat w_full main_c" bindtap='edit'>
+          <text>修改申请</text>
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

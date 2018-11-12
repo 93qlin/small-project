@@ -1,0 +1,201 @@
+<view class="page">
+  <view class="page__hd">
+  </view>
+  <view class='page__bd hidden {{isDetailShow?"h_500":""}}'>
+    <!--轮播  -->
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="swiperBox hidden">
+      <block wx:for="{{imgUrls}}" wx:key="{{item}}">
+        <swiper-item>
+          <image src="{{item.url}}" class="slide-image" />
+        </swiper-item>
+      </block>
+      <view class="parentTxt white">
+        <view class="mg_20_l fs28">{{storeInfo.title}}</view>
+      </view>
+    </swiper>
+    <!--轮播 end -->
+    <view class="top">
+      <navigator url="../comment/comment?sid={{sid}}">
+        <view class="h_100 w_full flex_start_c border_b fs24 main_c">
+          <view>
+            <text class="scoreNum">{{storeInfo.score}}</text>
+            <text>分</text>
+          </view>
+          <view class="flex_c m_l_auto mg_10_r">
+            <text> {{storeInfo.comm_count}}条评价</text>
+            <icon class='iconfont icon-xiayibu gray-color flex_c '></icon>
+          </view>
+        </view>
+      </navigator>
+      <view class="position hidden w_full p_p_20 border_box">
+        <view class="posTxt">{{storeInfo.area_desc}}{{storeInfo.address}}</view>
+        <view class="map" bindtap="openMap" >
+          <text class="fs24 main_c">地图/导航</text>
+        </view>
+      </view>
+    </view>
+    <!-- 房间列表 -->
+    <view class="weui-panel weui-panel_access m_v_20">
+      <view class="weui-panel__hd flex_start_c" bindtap='openCalendar'>
+        <view class="arrive">
+          <text class="txt">入住</text>
+          <text class="timeTxt">{{arriveTime}}</text>
+        </view>
+        <view class="leave">
+          <text class="txt">离店</text>
+          <text class="timeTxt">{{leaveTime}}</text>
+        </view>
+        <view class="total box box-pack-center">
+          <text class="txt main_c">共{{totalNight}}晚</text>
+          <icon class='iconfont icon-xiayibu gray-color box box-center'></icon>
+        </view>
+      </view>
+      <!-- 房型列表 -->
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_appmsg" hover-class="none" wx:for="{{showRoom}}" wx:key="{{item.id}}">
+          <view bindtap='toggleDetail' class="weui-media-box__bd weui-media-box__bd_in-appmsg" data-detail='{{item}}'>
+            <view class="weui-media-box__title">{{item.title}}</view>
+            <view class="weui-media-box__desc">
+              <view>
+                <view class='flex_start_c m_v_10'>
+                  <block wx:if='{{item.breakfast}}'>含早餐</block>
+                  <block wx:else>不含早餐</block>
+                  <view class="line"></view>
+                  <block wx:if='{{item.window}}'>有窗口</block>
+                  <block wx:else>不含窗口</block>
+                  <view class="line"></view>                  
+                  <block wx:if='{{item.bathroom}}'>带卫浴</block>
+                  <block wx:else>不带卫浴</block>
+                </view>
+              </view>
+              <view class="price">
+                <text class="symbol">￥</text>
+                <text class="money fs_40">{{item.price}}</text>
+              </view>
+            </view>
+          </view>
+          <view  hover-class="none" class='flex_c' bindtap='order' data-item = '{{item}}'>
+            <button class="weui-btn main_bg" type="primary" disabled="{{false}}" size='mini'>预订</button>
+          </view>
+        </view>
+        <view class="weui-panel__ft" wx:if="{{showRoom.length != 0}}">
+          <view class="weui-cell weui-cell_access weui-cell_link" >
+            <block wx:if='{{txtType}}'>
+              <view class="weui-cell__bd main_c" bindtap="lookMore">查看全部房型</view>
+            </block>
+          </view>
+        </view>
+        <view class="no_room flex_c_c" wx:else>
+          <view class="main_c fs32">暂无房型</view>
+        </view>
+      </view>
+    </view>
+    <!-- 房间列表 end -->
+  </view>
+  <!-- 酒店详情 -->
+  <view class="footer p_20 border_box  fs_25">
+    <text class="detail flex_c_c fs32 m_b_20">酒店详情</text>  
+    <view class="server border_b">
+      <text class="">可提供的服务</text>
+      <view class="flex">
+        <view class="service" wx:for="{{serviceList}}" wx:key="{{item}}">
+          <text class='iconfont {{item == 1 ? "icon-shangwangtubiao" : item == 2 ? "icon-tingchechang" : item == 3 ? "icon-tubiao2xiyu" : item == 4 ? "icon-dianchuifeng" : item == 5 ? "icon-mianfeixishuyongpin-" : ""}}'></text>
+          <text class="icon_txt">{{item == 1 ? "无线上网" : item == 2 ? "停车场" : item == 3 ? "热水洗浴" : item == 4 ? "电吹风" : item == 5 ? "洗漱用具" : ""}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="flex_column_c_start p_v_20 w_full border_box">
+      <view class="flex w_full">
+        <text class="details_left">具体地址：</text>
+        <text class="txt details_right">{{storeInfo.area_desc}}</text>
+      </view>
+      <view class="flex w_full"  style="margin-top: 6rpx;">
+        <text class="details_left">酒店类型：</text>
+        <text class="txt details_right">{{storeInfo.type == 1 ? "豪华/五星" : storeInfo.type == 2 ? "高档/四星": storeInfo.type == 3 ? "舒适/三星" : storeInfo.type == 4 ? "豪华/五星" : ""}}</text>
+      </view>
+     <view class="flex w_full" style="margin-top: 6rpx;">
+        <text class="details_left">酒店描述：</text>
+        <text class="txt details_right">{{storeInfo.describe}}</text>
+      </view>
+      <view class="flex w_full" style="margin-top: 6rpx;">
+        <text class="details_left">房间总数：</text>
+        <text class="txt details_right">{{storeInfo.rooms}}间</text>
+      </view>
+      <view class="flex w_full" wx:if="{{storeInfo.height}}" style="margin-top: 6rpx;">
+        <text class="details_left">楼层高度：</text>
+        <text class="txt details_right">{{storeInfo.height}}层</text>
+      </view>
+      <view class="flex w_full" style="margin-top: 6rpx;">
+        <text class="details_left">温馨提示：</text>
+        <text class="txt details_right">{{storeInfo.check_desc}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- 房间详情滑块 -->
+  <view class='room_content'>
+    <view class='room_detail w_c {{isDetailShow?"show_detail":""}}'>
+      <view class='w_full flex_c_c title p_p_20 border_box' >
+        <view class="w_full flex_c_b">
+          <view></view>
+          <text class="fs_30">{{roomDetail.title}}</text>
+          <icon class='iconfont icon-close dis_l_b self-align-end' bindtap='hiddenDetail'></icon>
+        </view>
+      </view>
+      <view class='wrapper border_box scroll'>
+        <!-- 房间详情轮播 -->
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="swiperBox hidden h_250">
+          <block wx:for="{{gallerysList}}" wx:key="{{item.id}}">
+            <swiper-item>
+              <image src="{{item.url}}" class="slide-image" />
+            </swiper-item>
+          </block>
+        </swiper> 
+        <view class='w_full p_20 border_box'>
+        <!-- 房间详情提供的服务 -->
+          <view class="w_full border_b flex_wrap p_20 border_box">
+            <view class="weui-flex__item flex_start_c fs_20 flex_b_50">
+              <view class='gray-color h_50 flex_start_c'>网络</view>
+              <view class='p_l_20 '>{{roomDetail.wifi == 1 ? '有' : '无'}}</view>
+            </view>
+            <view class="weui-flex__item flex_start_c fs_20 flex_b_50">
+              <view class='gray-color h_50 flex_start_c'>卫浴</view>
+              <view class='p_l_20 '>{{roomDetail.bathroom == 1 ? '有': '无'}}</view>
+            </view>
+            <view class="weui-flex__item flex_start_c fs_20 flex_b_50">
+              <view class='gray-color  v'>窗户</view>
+              <view class='p_l_20 '>{{roomDetail.window == 1 ? '有': '无'}}</view>
+            </view>
+            <view class="weui-flex__item flex_start_c fs_20 flex_b_50">
+              <view class='gray-color v'>早餐</view>
+              <view class='p_l_20 '>{{roomDetail.breakfast == 1 ? '有': '无'}}</view>
+            </view>
+            <view class="weui-flex__item flex_start_c fs_20 flex_b_50">
+              <view class='gray-color v'>面积</view>
+              <view class='p_l_20 '>{{roomDetail.acreage}}㎡</view>
+            </view>
+            <view class="weui-flex__item flex_start_c fs_20 flex_b_50">
+              <view class='gray-color v'>可住</view>
+              <view class='p_l_20 '>{{roomDetail.number}}人</view>
+            </view>
+          </view>
+          <!-- 房间描述 -->
+          <view class='w_full p_20 border_box border_b'>
+            <view class='fs_30'>房间描述</view>
+            <view class="fs_20 gray-color border_box p_10">{{roomDetail.describe || '暂时没有描述'}}</view>
+          </view>
+          <!-- 使用规则 -->
+          <view class='w_full p_20 border_box border_b'>
+            <view class='fs_30'>使用规则</view>
+            <view class="fs_20 gray-color border_box p_10">{{roomDetail.rule_desc || '还未设置使用规则'}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="footer_btn w_c flex fs_30">
+        <view class="money_btn flex_co_c fs36">￥{{roomDetail.price}}</view>
+        <view class="buy_btn main_bg flex_co_c" bindtap='order' data-item="{{roomDetail}}">预定</view>
+      </view>
+    </view>
+    <view class='mask {{isDetailShow?"show_mask":""}}' bindtap='toggleDetail'></view>
+  </view>
+</view>
+<calendar dayStamp="31" is-calendar-show="{{isOpenCalendar}}" bind:pickDateSpan="handleDatePicker"></calendar>

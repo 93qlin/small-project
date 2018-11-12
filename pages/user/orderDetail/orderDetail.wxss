@@ -1,0 +1,4 @@
+/* pages/user/orderDetail/orderDetail.wxss */
+.weui-form-preview__hd{
+  padding-bottom: 0 !important;
+}

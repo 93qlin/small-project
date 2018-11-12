@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/home/list/list",
+    "pages/home/comment/comment",
+    "pages/home/booking/booking",
+    "pages/home/hotelDetail/hotelDetail",
+    "pages/user/orderList/orderList",  
+    "pages/user/pay/pay",     
+    "pages/user/order/order",  
+    "pages/user/orderDetail/orderDetail",
+    "pages/user/refund/refund",
+    "pages/user/refundDetail/refundDetail",
+    "pages/user/addComment/addComment",
+    "pages/auth/auth/auth"    
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#f98401",
+    "navigationBarTitleText": "酒店订房",
+    "navigationBarTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#8a8a8a",
+    "selectedColor": "#f98401",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "image/icon_home.png",
+        "selectedIconPath": "image/icon_home_active.png"
+      },
+      {
+        "pagePath": "pages/user/orderList/orderList",
+        "text": "个人中心",
+        "iconPath": "image/icon_user.png",
+        "selectedIconPath": "image/icon_user_active.png"
+      }
+    ]
+  }
+}

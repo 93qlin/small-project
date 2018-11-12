@@ -1,0 +1,8 @@
+{
+  "backgroundTextStyle": "light",
+  "navigationBarTitleText": "酒店订房",
+  "navigationBarTextStyle": "light",
+  "usingComponents": {
+    "calendar": "/components/calendar/calendar"
+  }
+}

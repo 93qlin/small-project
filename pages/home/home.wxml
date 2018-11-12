@@ -1,0 +1,60 @@
+<view class="page">
+  <view class="page__bd w_bg fs_30">
+    <!--hotel.wxml-->
+    <view class="banner hidden">
+      <swiper class='swiper' indicator-dots='true' autoplay='true' interval='2000' duration='500'>
+        <block wx:for='{{imgUrls}}' wx:key='{{item}}'>
+          <swiper-item>
+            <image src='{{item.image_url}}' class='wh_full' />
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="setPosition w_full h_100 flex_start_c p_p_30 border_box border_b">
+      <picker bindchange="selectCity" range="{{city}}" range-key="name">
+        <view class='flex_btw_c p_v_20 '>
+          <icon class='iconfont icon-chengshi main_c p_r_30'></icon>
+          <view class=' flex_btw_c'>
+            <text class='flex_c '>{{curCity || '全部'}}</text>
+            <icon class='iconfont icon-xiayibu gray-color' style="font-size: 36rpx;"></icon>
+          </view>
+        </view>
+      </picker>
+       <view class="posRight flex_c m_l_auto" bindtap="nearHotel">
+        <icon class='iconfont icon-dingwei main_c p_r_20'></icon>
+        <text class=" ">附近酒店</text>
+      </view> 
+    </view>
+
+    <view class="flex_start_c " style="height:180rpx" bindtap='openCalendar'>
+      <view class="calImg flex_c p_l_30">
+        <icon class='iconfont icon-rili main_c'></icon>
+      </view>
+      <view class="p_l_30 flex_column_c_start h_full ">
+        <view class="h_half flex_start_c ">
+          <text class=' '>{{dateArr[0]}}</text>
+          <view class="  p_l_10">{{weekArr[0]}}住店</view>
+        </view>
+        <view class="h_half flex_start_c">
+          <text class=' '>{{dateArr[1]}}</text>
+          <view class="  p_l_10">{{weekArr[1]}}离店</view>
+        </view>
+      </view>
+      <view class="countTxt flex_start_c m_l_auto p_r_20">
+        <view class="  p_l_10 h_full">共{{totalNight}}晚</view>
+        <icon class='iconfont icon-xiayibu gray-color flex_c'></icon>
+      </view>
+    </view>
+
+    <view class="weui-cell_input h_100 w_full border_v flex_start_c border_box p_p_30">
+      <view class="weui-cell__hd">
+        <icon class='iconfont icon-sousuo flex_c p_r_30 main_c'></icon>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="搜索酒店名" bindinput='getSearchVal' />
+      </view>
+    </view>
+    <button class="weui-btn m_p_30 m_t_100" type="primary" bindtap='startSearch'>开始搜索</button>
+  </view>
+</view>
+<calendar dayStamp="31" is-calendar-show="{{isOpenCalendar}}" bind:pickDateSpan="handleDatePicker" max-day-span="365"></calendar>

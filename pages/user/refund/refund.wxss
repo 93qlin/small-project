@@ -1,0 +1,5 @@
+/* pages/user/refund/refund.wxss */
+.return_pay{
+  height: 40rpx;
+  line-height: 40rpx;
+}
